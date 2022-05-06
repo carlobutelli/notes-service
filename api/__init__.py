@@ -16,8 +16,6 @@ from .core import Core
 def create_app():
     app = Flask(__name__)
 
-    CORS(app)
-
     if not os.getenv('APP_SETTINGS'):
         app_settings = f"api.config.DevelopmentConfig"
     else:
@@ -25,10 +23,7 @@ def create_app():
     app.config.from_object(app_settings)
 
     Core(app)
-
-    # registering blueprints
-    from .admin.views import admin as admin_bp
-    app.register_blueprint(admin_bp)
+    CORS(app)
 
     # shell context for flask cli
     app.shell_context_processor({"app": app})
@@ -48,6 +43,13 @@ def create_app():
         app.logger.removeHandler(h)
     app.logger.addHandler(handler)
     app.logger.setLevel(log_level)
+
+    # registering blueprints
+    app.logger.info("[WARMUP]: Registering Blueprints")
+    from .admin.views import admin as admin_bp
+    from .user.views import user as user_bp
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(user_bp)
 
     swagger_config = {
         "headers": [],

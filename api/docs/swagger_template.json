@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Flask Init Template",
+    "title": "Notes Service",
     "version": "0.0.1",
     "contact": {
       "name": "API Support",
@@ -19,6 +19,10 @@
     {
       "name": "Admin",
       "description": "App readiness and health checks"
+    },
+    {
+      "name": "User",
+      "description": "Create user"
     }
   ],
   "definitions": {

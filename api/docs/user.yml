@@ -1,0 +1,62 @@
+Create new user
+---
+tags:
+  - User
+produces:
+  - application/json
+parameters:
+  - name: data
+    in: body
+    schema:
+      properties:
+        name:
+          type: string
+          description: User name
+          example: "Igor"
+        phone:
+          type: string
+          description: User phone
+          example: "+390622334455"
+        email:
+          type: string
+          description: User email
+          example: "some@email.com"
+definitions:
+  UserCreationResponse:
+    type: object
+    properties:
+      meta:
+        $ref: '#/definitions/BaseResponse'
+      data:
+        $ref: '#/definitions/UserId'
+  UserId:
+    type: object
+    properties:
+      id:
+        type: int
+        example: 10
+responses:
+  201:
+    description: returns session id of the created session
+    schema:
+      $ref: "#/definitions/UserCreationResponse"
+    examples:
+      UserCreationResponse:
+        meta:
+          status: CREATED
+          status_code: 201
+          message: "new user successfully created"
+          transaction_id: 1k838bv9-9876-1234-1a23-5g87165bef5e
+        data:
+          user: 1
+  500:
+    description: Internal server error"
+    schema:
+      $ref: '#/definitions/BaseResponse'
+    examples:
+      BaseResponse:
+        meta:
+          status: ERROR
+          status_code: 500
+          message: "internal server error"
+          transaction_id: 1k838bv9-9876-1234-1a23-5g87165bef5e
