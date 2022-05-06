@@ -35,6 +35,31 @@ definitions:
       id:
         type: int
         example: 10
+  User:
+    type: object
+    description: Model to represent the user instance in the database
+    properties:
+      id:
+        type: int
+        example: 1
+      name:
+        type: string
+        example: "Gregor"
+      phone:
+        type: string
+        nullable: true
+        example: "+390622334455"
+      email:
+        type: string
+        unique: true
+        example: "some@email.com"
+      created_at:
+        type: date
+        example: '2019-06-05 11:35:47.928578'
+      deleted:
+        type: bool
+        example: False
+        description: object is deleted or not
 responses:
   201:
     description: returns session id of the created session
@@ -49,6 +74,17 @@ responses:
           transaction_id: 1k838bv9-9876-1234-1a23-5g87165bef5e
         data:
           user: 1
+  400:
+    description: Bad request
+    schema:
+      $ref: "#/definitions/BaseResponse"
+    examples:
+      BaseResponse:
+        meta:
+          status: ERROR
+          status_code: 400
+          message: "specific error message"
+          transaction_id: 1k838bv9-9876-1234-1a23-5g87165bef5e
   500:
     description: Internal server error"
     schema:

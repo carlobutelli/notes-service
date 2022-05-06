@@ -22,6 +22,9 @@ export DATABASE_TEST_URL=postgresql+psycopg2://resu:d0nt4get@localhost:5432/note
 ### Run the API
 ---------------
 ## Full in Docker
+
+N.B. change the hostname ```localhost``` with ```postgres``` in both ENVs DATABASE_URL and DATABASE_URL_TEST 
+
 Start both the services (DB & API) with following commands
 ```bash
 docker-compose build
@@ -41,7 +44,7 @@ pip3 install -r requirements/dev.txt
 flask run -p 8080
 ```
 then the API will be available at ```localhost:8080/swagger```
-N.B. change the hostname ```postgres``` with ```localhost``` in both ENVs DATABASE_URL and DATABASE_URL_TEST
+
 ---
 
 ### Documentation
