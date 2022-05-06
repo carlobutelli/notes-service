@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 
 
@@ -22,7 +24,7 @@ class LocalConfig(BaseConfig):
     """Development configuration"""
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'postgresql://me:d0nt4get@localhost:5432/notes')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'postgresql://resu:d0nt4get@localhost:5432/notes')
 
 
 class TestingConfig(BaseConfig):
@@ -36,7 +38,7 @@ class DevelopmentConfig(BaseConfig):
     DEVELOPMENT = True
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'postgresql://me:d0nt4get@localhost:5432/notes')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'postgresql://resu:d0nt4get@localhost:5432/notes')
 
 
 class ProductionConfig(BaseConfig):
