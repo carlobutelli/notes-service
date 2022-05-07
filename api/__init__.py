@@ -48,8 +48,12 @@ def create_app():
     app.logger.info("[WARMUP]: Registering Blueprints")
     from .admin.views import admin as admin_bp
     from .user.views import user as user_bp
+    from .auth.views import auth as auth_bp
+    from .home.views import home as home_bp
     app.register_blueprint(admin_bp)
     app.register_blueprint(user_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(home_bp)
 
     swagger_config = {
         "headers": [],
