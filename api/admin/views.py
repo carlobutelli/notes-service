@@ -6,7 +6,7 @@ from flask import current_app as app
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 
-@admin.route("/ping")
+@admin.route('/ping')
 @swag_from("/api/docs/admin.yml")
 def ping():
     transaction_id = g.transaction_id
