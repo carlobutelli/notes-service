@@ -1,6 +1,6 @@
 # Flask Notes API
 ---------------------
-This is a simple note api with Python Flask.
+This is a simple notes api with Python Flask and PostgreSQL.
 
 N.B. Requires Docker to be installed.
 
@@ -30,10 +30,9 @@ Start both the services (DB & API) with following commands
 docker-compose build
 docker-compose up -d
 ```
-API will be available at ```localhost:8080/swagger```
 
 ## Partially in Docker
-Firstly start the DB in a container
+Firstly start the DB:
 ```bash
 docker-compose up -d postgres
 ```
@@ -43,7 +42,21 @@ virtualenv -p python3 venv && . venv/bin/activate
 pip3 install -r requirements/dev.txt
 flask run -p 8080
 ```
-then the API will be available at ```localhost:8080/swagger```
+
+API  will be available at ```localhost:8080```
+API's docs will be available at ```localhost:8080/swagger```
+
+N.B.
+Database can be created from scratch by
+```bash
+docker pull postgres
+docker run --name postgres -e POSTGRES_USER=resu -e POSTGRES_PASSWORD=d0nt4get -p 5432:5432 -d notes
+```
+
+Connect to DB:
+```bash
+docker exec -it <container_id> psql -h localhost -p 5432 -U resu -d notes -W
+```
 
 ---
 
