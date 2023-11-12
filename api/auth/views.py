@@ -1,16 +1,31 @@
 #!/usr/bin/env python3
-from flask import Blueprint, render_template
+from flask import Blueprint, request, render_template
+from flask_login import current_user, login_required
 
-auth = Blueprint("auth", __name__,  url_prefix="/auth")
+from api.auth.handler import sign_up, signin, logoff
 
-@auth.route('/login')
+auth = Blueprint("auth", __name__, url_prefix="/auth")
+
+
+@auth.route('/sign-up', methods=['GET', 'POST'])
+# @swag_from('./api/docs/auth/register.yml')
+def register():
+    if request.method == 'POST':
+        data = request.form.to_dict()
+        return sign_up(data=data)
+    return render_template("sign_up.html", user=current_user)
+
+
+@auth.route('/login', methods=['GET', 'POST'])
+# @swag_from('./api/docs/auth/login.yml')
 def login():
-    return render_template("login.html")
+    if request.method == 'POST':
+        return signin()
+    return render_template("login.html", user=current_user)
 
-@auth.route('/logout')
+
+@auth.route('logout')
+# @swag_from('./api/docs/auth/logout.yml')
+@login_required
 def logout():
-    return "<p>Logout</p>"
-
-@auth.route('/sign-up')
-def sign_up():
-    return render_template("sign_up.html")
+    return logoff()

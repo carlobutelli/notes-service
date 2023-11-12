@@ -7,10 +7,13 @@ import uuid
 from flasgger import Swagger
 from flask import Flask, request, g
 from flask_cors import CORS
+from flask_login import LoginManager
+from flask_migrate import Migrate
 
 from api.core import get_db
 from .config import DevelopmentConfig, LocalConfig, TestingConfig, ProductionConfig
 from .core import Core
+from .user import User
 
 
 def create_app():
@@ -54,6 +57,14 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(home_bp)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_guid):
+        return User.query.get(user_guid)
 
     swagger_config = {
         "headers": [],

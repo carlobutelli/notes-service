@@ -2,25 +2,25 @@
 import re
 from flask import g
 
-from api.core.logs import log_error_with_transaction_id
+from api.core.logs import log_error_with_txn_id
 from api.exceptions import ValidationError
 
 
 def validate_data_keys(data: dict, keys: set):
     if not data:
-        log_error_with_transaction_id("[VALIDATION]", g.transaction_id, "data not found")
+        log_error_with_txn_id("[VALIDATION]", g.transaction_id, "data not found")
         raise ValidationError("data not found", list(keys))
 
     # check if all the data is present
     if not keys.issubset(data.keys()):
-        log_error_with_transaction_id("[VALIDATION]", g.transaction_id, "incorrect keys on provided dict")
+        log_error_with_txn_id("[VALIDATION]", g.transaction_id, "incorrect keys on provided dict")
         raise ValidationError("missing fields",
                               list(keys - set(data.keys())))
 
 
 def validate_content_keys(data: dict, keys: set):
     if not data:
-        log_error_with_transaction_id("[VALIDATION]", g.transaction_id, "data not found")
+        log_error_with_txn_id("[VALIDATION]", g.transaction_id, "data not found")
         raise ValidationError("data not found", list(keys))
 
     # check that all keys are not empty
@@ -42,7 +42,7 @@ def validate_phone(phone: str):
     """
     regular_expression = "^(?:(?:00|\+)\d{4}|0)[0-9](?:\d{6,14})$"
     if not re.match(regular_expression, phone, flags=0):
-        log_error_with_transaction_id("[VALIDATION]", g.transaction_id, f"phone '{phone}' format not valid")
+        log_error_with_txn_id("[VALIDATION]", g.transaction_id, f"phone '{phone}' format not valid")
         raise ValidationError(f"phone '{phone}' format not valid")
     return True
 

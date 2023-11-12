@@ -19,33 +19,42 @@ services:
       retries: 5
     ports:
       - "5432:5432"
-    networks:
-      - net1
+#    networks:
+#      - net1
 
-  api:
-    container_name: api
-    privileged: true
-    build:
-      context: ./
-      dockerfile: Dockerfile-dev
+  pg-admin:
+    image: dpage/pgadmin4
     environment:
-      - DATABASE_URL=postgresql+psycopg2://resu:d0nt4get@localhost:5432/notes
-      - DATABASE_TEST_URL=postgresql+psycopg2://resu:d0nt4get@localhost:5432/notes-test
-      - FLASK_APP=api
-      - FLASK_DEBUG=1
-      - FLASK_ENV=development
-      - APP_SETTINGS=Development
-    depends_on:
-      - postgres
-    links:
-      - postgres:postgres
+      - PGADMIN_DEFAULT_EMAIL=me@email.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_LISTEN_PORT=5050
     ports:
-      - "8080:8080"
-    volumes:
-      - ".:/code"
-    networks:
-      - net1
+      - "5050:5050"
 
-networks:
-  net1:
-    driver: bridge
+#  api:
+#    container_name: api
+#    privileged: true
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile-dev
+#    environment:
+#      - DATABASE_URL=postgresql+psycopg2://resu:d0nt4get@postgres:5432/notes
+#      - DATABASE_TEST_URL=postgresql+psycopg2://resu:d0nt4get@postgres:5432/notes-test
+#      - FLASK_APP=api
+#      - FLASK_DEBUG=1
+#      - FLASK_ENV=development
+#      - APP_SETTINGS=Development
+#    depends_on:
+#      - postgres
+#    links:
+#      - postgres:postgres
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - ".:/code"
+#    networks:
+#      - net1
+#
+#networks:
+#  net1:
+#    driver: bridge

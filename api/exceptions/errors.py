@@ -58,3 +58,9 @@ class WrongConfiguration(Error):
     Attributes:
         message -- explanation of the error
     """
+
+
+class ValidationErrorData:
+    def __init__(self, field:str=None, message:str=None):
+        self.field = field
+        self.message = message

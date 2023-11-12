@@ -31,11 +31,15 @@ docker-compose build
 docker-compose up -d
 ```
 
-## Partially in Docker
+## Only Database in Docker and API locally
 Firstly start the DB:
 ```bash
-docker-compose up -d postgres
+docker-compose up -d postgres pg-admin
 ```
+this command also creates a PG-Admin instance to control Postgres over WEB at ```http://localhost:5050```
+N.B. 
+use the container name as Database Name 
+
 then create the virtual environment, install the requirements and start the API
 ```bash
 virtualenv -p python3 venv && . venv/bin/activate
