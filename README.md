@@ -37,8 +37,16 @@ Firstly start the DB:
 docker-compose up -d postgres pg-admin
 ```
 this command also creates a PG-Admin instance to control Postgres over WEB at ```http://localhost:5050```
+
 N.B. 
 use the container name as Database Name 
+
+To create DB's tables and/or updated them run the following:
+```bash
+flask init db
+flask db migrate
+flask db update
+```
 
 then create the virtual environment, install the requirements and start the API
 ```bash
